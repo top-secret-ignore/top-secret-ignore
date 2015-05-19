@@ -1,0 +1,62 @@
+<head>
+  <title>scheduler</title>
+</head>
+
+<body>
+  <h1>Trying out table templates</h1>
+
+  <table>
+  	<thead>
+  	<tr>
+  		<td>Employees</td>
+      <td>Sunday</td>
+  		<td>Monday</td>
+  		<td>Tuesday</td>
+  		<td>Wednesday</td>
+  		<td>Thursday</td>
+  		<td>Friday</td>
+  		<td>Saturday</td>
+  	</tr>
+  	</thead>
+  	<tbody>
+  		{{#each employees}}
+  	  	{{> employee}}
+  	  {{/each}}
+    </tbody>
+  </table>
+
+  {{> addEmployeeForm}}
+
+  {{> addShiftForm}}
+
+</body>
+
+<template name="employee">
+	<tr>
+		<td>{{name}}</td>
+      {{#each day}}
+          {{#if shift num}}
+          {{#with shift num}}
+            <td> {{hours}} </td>
+          {{/with}}
+          {{else}}
+            <td></td>
+          {{/if}}
+      {{/each}}
+	</tr>
+</template>
+
+<template name="addEmployeeForm">
+  <form class="new-employee">
+    <input type="text" name="text" placeholder="new employee">
+  </form>
+</template>
+
+<template name="addShiftForm">
+  <form class="new-shift">
+    <input type="text" name="day" placeholder="day">
+    <input type="text" name="employee" placeholder="employee">
+    <input type="text" name="hours" placeholder="hours">
+    <input type="submit" value="Add Shift">
+  </form>
+</template>
