@@ -1,5 +1,5 @@
 Employees = new Mongo.Collection("employees");
-
+//employee : {name : "Alex"}
 Shifts = new Mongo.Collection("shifts");
 //shift: {day : 2, name : "Alex", hours : "2 to 5"} 1 is Monday
 
@@ -30,6 +30,36 @@ if (Meteor.isClient) {
         event.target.day.value = "";
         event.target.employee.value = "";
         event.target.hours.value = "";
+      }
+    });
+
+    Template.employee.events({
+      "click .cell" : function (event) {
+        event.preventDefault();
+        var s = event.currentTarget.innerHTML;
+        if (event.currentTarget.outerHTML.indexOf("<form") == -1) {
+          var form = "<td class=\"cell\"><form class=\"change-hours\"><input type=\"text\" name=\"hours\" placeholder="+"\""+s+"\""+" autofocus></form></td>";
+          event.currentTarget.outerHTML = form;
+        }
+      },
+
+       "submit .change-hours" : function (event) {
+        event.preventDefault();
+        var d = event.currentTarget.offsetParent.cellIndex -1;
+        console.log(d);
+        var h = event.target.hours.value;
+        var n = this.name;
+        
+         Shifts.insert({
+          day : parseInt(d),
+          name : n,
+          hours : h
+        });
+
+         var tablentry = "<td class=\"cell\" name=\"hours\">"+h+"</td>";
+         //event.currentTarget.outerHTML = "<td class=\"cell\"></td>";
+         event.currentTarget.outerHTML = tablentry;
+         console.log(d);
       }
     });
 

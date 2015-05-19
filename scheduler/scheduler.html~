@@ -1,9 +1,9 @@
 <head>
-  <title>scheduler</title>
+  <title>Scheduler</title>
 </head>
 
 <body>
-  <h1>Trying out table templates</h1>
+  <h1>Scheduler Prototype</h1>
 
   <table>
   	<thead>
@@ -57,6 +57,6 @@
     <input type="text" name="day" placeholder="day">
     <input type="text" name="employee" placeholder="employee">
     <input type="text" name="hours" placeholder="hours">
-    <input type="submit" value="Add Shift">
+    <input type="submit" name="submit" value="Add Shift">
   </form>
 </template>

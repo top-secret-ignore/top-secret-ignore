@@ -37,10 +37,11 @@
       {{#each day}}
           {{#if shift num}}
           {{#with shift num}}
-            <td> {{hours}} </td>
+            <td class="cell" name="hours"> {{hours}} </td>
           {{/with}}
           {{else}}
-            <td></td>
+            <td class="cell"></td>
+            
           {{/if}}
       {{/each}}
 	</tr>
@@ -49,6 +50,7 @@
 <template name="addEmployeeForm">
   <form class="new-employee">
     <input type="text" name="text" placeholder="new employee">
+    <input type="submit" name="addemployee" value="Add Employee">
   </form>
 </template>
 
