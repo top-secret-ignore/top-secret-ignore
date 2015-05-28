@@ -37,11 +37,10 @@
       {{#each day}}
           {{#if shift num}}
           {{#with shift num}}
-            <td class="cell" name="hours"> {{hours}} </td>
+            <td class="cell" name="hours" id="testing"> {{hours}} </td>
           {{/with}}
           {{else}}
-            <td class="cell"></td>
-            
+            <td class="cell" id="testing"></td>
           {{/if}}
       {{/each}}
 	</tr>

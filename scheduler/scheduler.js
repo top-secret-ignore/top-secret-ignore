@@ -45,21 +45,17 @@ if (Meteor.isClient) {
 
        "submit .change-hours" : function (event) {
         event.preventDefault();
+        row = event.currentTarget.offsetParent.parentNode;
         var d = event.currentTarget.offsetParent.cellIndex -1;
-        console.log(d);
         var h = event.target.hours.value;
         var n = this.name;
-        
          Shifts.insert({
           day : parseInt(d),
           name : n,
           hours : h
         });
-
-         var tablentry = "<td class=\"cell\" name=\"hours\">"+h+"</td>";
-         //event.currentTarget.outerHTML = "<td class=\"cell\"></td>";
-         event.currentTarget.outerHTML = tablentry;
-         console.log(d);
+         row.deleteCell(d+1);
+         event.currentTarget.outerHTML = null;
       }
     });
 
