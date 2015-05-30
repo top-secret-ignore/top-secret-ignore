@@ -5,8 +5,14 @@
 <body>
   <h1>Scheduler Prototype</h1>
 
+  <button type="button" class="last-week">Previous Week</button>
+  <button type="button" class="next-week">Next Week</button>
+
   <table>
   	<thead>
+    <tr>
+      <td>{{> currentWeek}}</td>
+    </tr>
   	<tr>
   		<td>Employees</td>
       <td>Sunday</td>
@@ -19,15 +25,44 @@
   	</tr>
   	</thead>
   	<tbody>
+      {{#with week=0}}
   		{{#each employees}}
   	  	{{> employee}}
   	  {{/each}}
+      {{/with}}
+    </tbody>
+  </table>
+
+<br>
+
+<table>
+    <thead>
+    <tr>
+      <td>{{> nextWeek}}</td>
+    </tr>
+    <tr>
+      <td>Employees</td>
+      <td>Sunday</td>
+      <td>Monday</td>
+      <td>Tuesday</td>
+      <td>Wednesday</td>
+      <td>Thursday</td>
+      <td>Friday</td>
+      <td>Saturday</td>
+    </tr>
+    </thead>
+    <tbody>
+      {{#with week=1}}
+      {{#each employees}}
+        {{> employee}}
+      {{/each}}
+      {{/with}}
     </tbody>
   </table>
 
   {{> addEmployeeForm}}
 
-  {{> addShiftForm}}
+  <!-- {{> addShiftForm}} -->
 
 </body>
 
@@ -37,10 +72,10 @@
       {{#each day}}
           {{#if shift num}}
           {{#with shift num}}
-            <td class="cell" name="hours" id="testing"> {{hours}} </td>
+            <td class="cell" name="hours"> {{hours}} </td>
           {{/with}}
           {{else}}
-            <td class="cell" id="testing"></td>
+            <td class="cell"></td>
           {{/if}}
       {{/each}}
 	</tr>
@@ -53,6 +88,14 @@
   </form>
 </template>
 
+<template name="currentWeek">
+  {{currentweek}}
+</template>
+<template name="nextWeek">
+  {{nextweek}}
+</template>
+
+<!--  
 <template name="addShiftForm">
   <form class="new-shift">
     <input type="text" name="day" placeholder="day">
@@ -60,4 +103,4 @@
     <input type="text" name="hours" placeholder="hours">
     <input type="submit" name="submit" value="Add Shift">
   </form>
-</template>
+</template> -->
