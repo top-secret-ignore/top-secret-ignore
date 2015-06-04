@@ -3,7 +3,12 @@
 </head>
 
 <body>
+
+{{#if currentUser}}
+
   <h1>Scheduler Prototype</h1>
+
+  <h2>Yo whatsup my nikka {{> currentLoggedIn}}</h2>
 
   <table>
   	<thead>
@@ -29,7 +34,21 @@
 
   {{> addShiftForm}}
 
+  {{> hireEmployee}}
+
+  {{> logoutButton}}
+
+
+{{else}}
+  {{> loginForm}}
+
+{{/if}}
+
 </body>
+
+<template name="currentLoggedIn">
+  {{loggedInAs}}
+</template>
 
 <template name="employee">
 	<tr>
@@ -59,5 +78,31 @@
     <input type="text" name="employee" placeholder="employee">
     <input type="text" name="hours" placeholder="hours">
     <input type="submit" name="submit" value="Add Shift">
+  </form>
+</template>
+
+<template name="hireEmployee">
+  <form class="hireEmployee">
+    Last Name <input type="text" name="lastName" id="lastName" placeholder="ENTER THE LAST FUJCKING NAME HERE">
+    First Name <input type="text" name="firstName" id="firstName" placeholder="ARE YOU DUMB, FIRST NAME HERE"> <br><br><br>
+    Username <input type="text" name="username" id="username" placeholder="GIVE DA MAN OR WOMAN HIS OR HER MOTHERFUDGEN NEW USERNAME">
+    Password <input type="text" name="password" id="password" placeholder="PUT HIS/HER PASSWORD HERE"> <br>
+    <input type="radio" name="type" id="employee" value="employee" checked>Employee <br>
+    <input type="radio" name="type" id="manager" value="manager">Manager <br>
+    <input type="submit" name="submit" value="Hire">
+  </form>
+</template>
+
+<template name="logoutButton">
+  <form class="logoutButton">
+    <input type="submit" value="Logout">
+  </form>
+</template>
+
+<template name="loginForm">
+  <form class="loginForm">
+    <input type="username" name="username" id="username" placeholder="INSERT YOUR USERNAME HERE BITCH">
+    <input type="password" name="password" id="password" placeholder="NOW INSERT YOUR PASSWORD YOU TWAT">
+    <input type="submit" value="Login">
   </form>
 </template>

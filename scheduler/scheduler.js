@@ -33,6 +33,73 @@ if (Meteor.isClient) {
       }
     });
 
+    Template.hireEmployee.events({
+      "submit .hireEmployee" : function (event, template) {
+
+        event.preventDefault();
+        var lastNameInfo = template.find('#lastName').value;
+        var firstNameInfo = template.find('#firstName').value;
+        var usernameInfo = template.find('#username').value;
+        var passwordInfo = template.find('#password').value;
+        var typeInfo = event.target.type.value;
+
+        var usertobeadded = {
+          username: usernameInfo,
+          password: passwordInfo,
+          profile: {
+            lastName: lastNameInfo,
+            firstName: firstNameInfo,
+            type: typeInfo
+          }
+        };
+
+        Meteor.call('createEmployee', usertobeadded);
+        /*Accounts.createUser( usertobeadded, function (error) {
+          if (error){
+            console.log("creatUser error has occured");
+          }
+        });*/
+
+        console.log("New hire submitted");
+        console.log(lastNameInfo + " " + firstNameInfo + " " + usernameInfo + " " + passwordInfo);
+        console.log(typeInfo);
+        console.log(usertobeadded);
+
+      }
+    });
+
+    Template.logoutButton.events({
+      "submit .logoutButton" : function (event, template) {
+
+        event.preventDefault();
+        Meteor.logout();
+        console.log("User has been logged out");
+
+      }
+    });
+
+
+    Template.loginForm.events({
+      "submit .loginForm" : function (event, template) {
+
+        event.preventDefault();
+        var usernameInfo = template.find('#username').value;
+        var passwordInfo = template.find('#password').value;
+        Meteor.loginWithPassword(usernameInfo, passwordInfo);
+        console.log("Login submitted");
+        console.log(usernameInfo, passwordInfo);
+
+        if (Meteor.user()){
+          console.log("we found user");
+        }
+
+        else{
+          console.log("user not found");
+        }
+
+      }
+    });
+
     Template.employee.events({
       "click .cell" : function (event) {
         event.preventDefault();
@@ -67,6 +134,12 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.currentLoggedIn.helpers({
+    loggedInAs : function() {
+      return Meteor.user().profile.firstName;
+    }
+  });
+
   Template.employee.helpers({
     day : [{num : 0}, {num : 1}, {num : 2}, {num : 3}, {num : 4}, { num : 5}, {num : 6}],
 
@@ -75,4 +148,40 @@ if (Meteor.isClient) {
       return Shifts.findOne({name : Template.parentData(1).name, day : d });
     }
   });
+
+}
+
+if (Meteor.isServer){
+
+  Meteor.methods({
+
+    createEmployee : function(user) {
+
+      /*event.preventDefault();
+      var lastNameInfo = template.find('#lastName').value;
+      var firstNameInfo = template.find('#firstName').value;
+      var usernameInfo = template.find('#username').value;
+      var passwordInfo = template.find('#password').value;
+      var typeInfo = event.target.type.value;
+
+      var usertobeadded = {
+        username: usernameInfo,
+        password: passwordInfo,
+        profile: {
+          lastName: lastNameInfo,
+          firstName: firstNameInfo,
+          type: typeInfo
+        }
+      };*/
+
+      Accounts.createUser(user);
+
+      /*console.log("New hire submitted");
+      console.log(lastNameInfo + " " + firstNameInfo + " " + usernameInfo + " " + passwordInfo);
+      console.log(typeInfo);
+      console.log(usertobeadded.profile);*/
+    }
+
+  });
+
 }
